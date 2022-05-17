@@ -1,6 +1,8 @@
 import React from 'react'
 import './App.css';
-import {createTheme, PrimaryButton, ThemeProvider} from '@fluentui/react'
+import {createTheme, mergeStyleSets, PrimaryButton, ThemeProvider, registerIcons} from '@fluentui/react'
+import { GitHubLogoIcon } from '@fluentui/react-icons-mdl2';
+
 
 const myTheme = createTheme({
   palette: {
@@ -29,12 +31,30 @@ const myTheme = createTheme({
     white: '#ffffff',
   }});
 
+const classNames = mergeStyleSets({
+  github_logo: {
+    bottom: "2px",
+    position: "relative",
+  }
+});
+
+registerIcons({
+  icons: {
+    GitHubLogoIcon: <GitHubLogoIcon />,
+  },
+});
+
+const iconProps = {
+  iconName: 'GitHubLogoIcon',
+  className: classNames.github_logo,
+}
+
 function App() {
   return (
     <ThemeProvider applyTo='body' theme={myTheme}>
     <div className='App'>
       <h1>Hello Buttons</h1>
-      <PrimaryButton text='Sign in with Github' href='https://github.com/login' />
+      <PrimaryButton text='Sign in with Github' href='https://github.com/login' iconProps={iconProps} />
     </div>
     </ThemeProvider>
   )
